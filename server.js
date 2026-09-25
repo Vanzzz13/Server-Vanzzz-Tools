@@ -244,7 +244,7 @@ app.post('/api/owner/create-balance-code', function(req, res) {
     var user = users[email];
     if (!user) return res.status(404).json({error:'User tidak ditemukan!'});
     if (!amount||amount<=0) return res.status(400).json({error:'Nominal wajib'});
-    if (user.accountType !== 'owner') {
+    if (user.accountType !== 'owner' && user.accountType !== 'admin') {
         var total = parseInt(amount) * Math.min(parseInt(count)||1, 100);
         var bal   = user.balance||0;
         if (bal < total) return res.status(402).json({error:'Saldo tidak cukup! Butuh Rp '+total+', saldo kamu Rp '+bal});
